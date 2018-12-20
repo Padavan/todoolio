@@ -1,5 +1,8 @@
 const todo = (state = [], action) => {
   switch (action.type) {
+    case 'TODO_FETCH': {
+      return action.todos;
+    }
     case 'TODO_ADD':
       return [...state, {
         id: action.id,
@@ -11,15 +14,12 @@ const todo = (state = [], action) => {
     case 'TODO_EDIT':
       return state.map(item => (
         (item.id === action.id)
-          ? { ...item, name: action.name }
+          ? { ...item, name: action.name, status: action.status }
           : item
       ));
-    case 'TODO_TOGGLE':
-      return state.map(item => (
-        (item.id === action.id)
-          ? { ...item, status: !item.status }
-          : item
-      ));
+    case 'TODO_REORDER':
+      state.splice(action.to, 0, state.splice(action.from, 1)[0]);
+      return state;
     default:
       return state;
   }

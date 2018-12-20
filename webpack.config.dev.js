@@ -29,6 +29,10 @@ module.exports = {
     hotOnly: true,
     compress: true,
     https: false,
+    proxy: {
+      '/api': 'http://api:3001/',
+      changeOrigin: true,
+    },
   },
   target: 'web',
   module: {

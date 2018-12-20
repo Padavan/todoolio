@@ -15,7 +15,6 @@ if (process.env.NODE_ENV === 'production') {
 } else {
   store = configureStoreDev();
 }
-// const store = configureStore();
 
 const App = () => (
   <Provider store={store}>

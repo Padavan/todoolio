@@ -1,30 +1,26 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { editTodoAction, removeTodoAction, toggleTodoAction } from '../actions';
+import { editTodoAction, removeTodoAction } from '../actions';
 
 // TODO uncontrolled input
-const Todo = ({ data, editTodo, removeTodo, toggleTodo }) => {
+const Todo = ({ data, editTodo, removeTodo }) => {
   console.log(data);
   return (
-    <div className='todo-card'>
-      <input type='checkbox' checked={data.status} onChange={() => toggleTodo(data.id)} />
-      {data.id}
-      <input type='text' value={data.name} onChange={e => editTodo(data.id, e.target.value)} />
+    <React.Fragment>
+      <input type='checkbox' checked={data.status} onChange={() => editTodo(data.id, data.name, !data.status)} />
+      <input type='text' value={data.name} onChange={e => editTodo(data.id, e.target.value, data.status)} />
       <button onClick={() => removeTodo(data.id)}> Remove </button>
-    </div>
+    </React.Fragment>
   );
 };
 
 const mapDispatchToProps = dispatch => ({
-  editTodo(id, name) {
-    dispatch(editTodoAction(id, name));
+  editTodo(id, name, status) {
+    dispatch(editTodoAction(id, name, status));
   },
   removeTodo(id) {
     dispatch(removeTodoAction(id));
-  },
-  toggleTodo(id) {
-    dispatch(toggleTodoAction(id));
   }
 });
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { addTodoAction } from '../actions';
 
-class AddTodo extends React.Component {
+export class AddTodo extends React.Component {
   state = {
     valid: true,
     value: ''
@@ -19,20 +19,20 @@ class AddTodo extends React.Component {
       return false;
     }
     this.props.addTodo(this.state.value);
-    // reset widget
     this.setState({ valid: true, value: '' });
+    return 0;
   }
 
   render() {
     return (
       <div>
-        <button onClick={() => this.handleButton()}> + </button>
         <input
           type='text'
           onChange={e => this.handleInput(e)}
           value={this.state.value}
           className={this.state.valid ? '' : 'invalid'}
         />
+        <button onClick={() => this.handleButton()}>Add Todo</button>
       </div>
     );
   }
@@ -43,8 +43,5 @@ const mapDispatchToProps = dispatch => ({
     dispatch(addTodoAction(name));
   },
 });
-
-// export default connect(mapStateToProps, mapDispatchToProps)(Settings);
-
 
 export default connect(null, mapDispatchToProps)(AddTodo);
